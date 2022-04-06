@@ -1,0 +1,1629 @@
+Java streams using filters with variety of conditions, map, collect, type conversions
+Future, completable future
+Object Mapper classes
+Lombok annotations
+Builder classes
+Feign using request line
+Circuit breaker with hystrix and resilience4j
+All Http methods
+Security using oauth2
+Micro services principles
+Micro services communication
+Load balancing
+Pcf deployment
+Environments
+Db scripts
+Hibernate mappings, annotations
+Jenkins pipelines
+code smells, coverage
+Sonar, jacoco, swagger
+Streams with reduce like mapToDouble, mapToObj, mapToInt, mapToLong
+Stream map reduce for BigDecimal
+Method reference, constructor reference instead of lambdas
+Java best practices
+Consumer, producer, predicate, Function classes
+Enum classes with different data type values for elements and methods in Enum classes
+Different configurations in spring boot application using yml files
+Logging levels
+Data source configuration for tables creation and data insertion into those tables
+Cache management like setting caches for repositories, clearing, set time for auto clear
+
+
+Spring & Spring MVC-Done
+Spring Boot-Done
+Spring Security--Done
+Spring AOP
+Spring JPA--Done
+Spring Microservices
+Eureka--
+REStful
+Soap--
+JDBC
+Hibernate
+Oracle-
+MySql--
+Serviet---Done
+JSP--Done
+Log4j---Done
+Maven-
+JUnit--
+AOP-
+Core java
+Oops Consepts
+Multi Thread
+Exception Handling
+Input Output
+Collections
+Streams
+Lambda
+Date n Time.
+Lambda
+Date n Time.
+Design Patterns
+Spring Boot-Team Pivotal-
+1.What is Spring Boot?
+Spring Boot is combination of Spring Framework & Removing XML & added Integrated Services (Embeded Tomcat,H2 database,Etc)
+2.Spring Boot Advantages?
+-Removed All XML configuration.provided Micro Services ,and integrated Services (Embeded Tomcat,H2 database, Etc), Third Party
+libs(No-SQL,Net Flix)
+3.Spring Boot Dis-Advantages?
+-Existing Spring project to Spring is Not Straight Forward,Mostly for new project
+deployment in weblogic,websphere is not simple.remove conflicting jars etc in order to make it work in application server
+microservices kept mind in Cloud native
+4.JpaRepositary?
+-Provided by JPA.Simplify the implementation of data access layer using jpa.
+5.CrudRepositary
+its provieds the methods for Crud operations. its extends super interface Repository.it is recommended,because ,it doesn't tie with
+application with any specific store implementation
+6.PagingAndSortingRepository extends CrudRepositary
+It is made specialy for paging and sorting
+Iterable T> findAll(Sort sort)
+Page<T> findAll(Pagea ble pageable)
+7.JpaRepositary vs CrudRepositary
+162
+DELL
+PDBY2
+-Annotations-
+@EnableAutoConfiguration:- will automatically do the spring configurations. it will create, register and load the Spring configuration beans
+required by the applications from the classes available in the class path. It's setup the all required configuration
+if you want any class exclude.
+@EnableAutoConfiguration(exclude=(Data SourceAutoConfiguration.clas s})
+@ComponentScan(value="package"): -
+Spring would search the package and all its sub packages for components/beans that
+declared by @Component or @Service or @Repository.
+@Configuration:
+allow to register extra beans in the context or import additional configuration classes
+@SpringBootApplication:
+It is Combination of Common Annotations used by developer.lt's contains mainly three Annotions
+@EnableAutoConfiguration: enable Spring Boot's auto-configuration mechanism.
+@ComponentScan: enable @Component scan on the package where the application is located.
+@Configuration: allow to register extra beans in the context or import additional configuration classes
+@Component:-
+When Component scan is enable in the spring,the Spring can pick up and pull in to the Applcation context for bean creation.
+used to auto-detect and auto-configure beans using classpath scanning. There's an implicit one-to-one mapping between the
+annotated class and the bean (i.e. one bean per class).
+It is class level Annotation.
+in xml
+<context:component-scan base-package="package" >
+12
+@Service:
+It is used in Business laver
+DELL
+@Service:
+It is used in Business layer
+@Bean:-
+it is used to explicitly declare a single bean, rather than letting Spring do it automatically for us.
+it is method level Annotation.
+by default, name of the method serves as the bean name.
+@Controller:-
+@RestController:
+@RequestMapping(value="/path " ,method-RequestMethod.GET, produces=,consumes=):-
+@PutMapping(value="/path", produces=,consumes=)
+@GetMapping(value="/path", produces=,consumes=)
+@PostMapping(value="/path",produces=,consumes=)
+@DeleteMapping(value="/path", produces=,consumes-)
+@PathVariable("FieldName") String name
+@RequestParam("FieldName") String name
+@RequestBody Student student
+@Autowired
+@Param
+@ConfigurationProperties
+@Setter
+@Getter
+@Validated
+@Data
+@Timed
+@Aspect
+@OnetoOne(cascade=CascadeType.All,mappedBy="entityClass", fetch FetchType.LAZY)
+@One ToMany(cascade Cascade Type.All,mappedBy="entityClass"fetch Fetch Type.LAZY)
+@Many ToOne(cascade Cascade Type.All,mappedBy="entityClass".fetch FetchType.LAZY)
+@JoinColumn(name="foreignKey")
+@Primary
+@Default
+-@Value
+To bind the value from property file data to variable
+@Value(value="$ (welcome.name)")
+public String name;
+here in properties file whatever we declared to welcome.name-"rafi' that will assign to name.
+Custom Queries-
+Creating Database Queries from Method Names
+We can write our own methods to get the data from DB while using CrudRepository.Should be some Query name Conventions.
+ex: findByLastName or findByFirstNameAnd LastName or findByFirstNameOrLastName or findByFirstNameStartingWith
+Creating database Queries With Named Queries--@NamedQuery(JPA) - OR @NamedNativeQuery->(SQL)
+lf you want to write your own Query then we can write using
+@NamedQueries(value={
+@NamedQuery(name="Student.findByName", query"SELECT id FROM Student s WHERE s.name=?1 ")
+@NamedQuery(name="Student.findByldAnd Name",query-"SELECT name,id FROM Student s WHERE s.id ?1 OR s.name ?2")
+@NamedNativeQueries(value={
+@NamedNativeQuery(name"Student.findByName", query-"SELECT FROM Student WHERE
+name ?1",resultClass-Student.class)
+@NamedNativeQuery(name "Student.findByldAndName".querv "SELECT FROM Student s WHERE s.ide105 &
+12
+DELI
+name=71".resultClass Student.class)
+NamedNativeQuery(name="Student.findByldAndName".query="SELECT FROM Student s WHERE s.id-105'&
+s.name='rafi", resultClass-Student.class)
+this aproach basically works fine for a small number of Queries.lts tied with domain class(Pojo).
+it tied with SQL queries
+Creating database Queries With @Query Annotation
+If you want to write your own Query then we can write using
+@Query(value-"SELECT s FROM Students WHERE s.id=?1 OR s.name =?2")
+this we can define on top of method in interface (CrudRepositary).it doesnot tie with Domain class
+if you want to use native queries-use like
+@Query(value="SELECT s FROM Student s WHERE s.id=?1 OR s.name-?2",nativeQuery-true)
+-Actuator
+Actuator>it's sub project of a Spring Boot Applcation.its production ready features to help you monitor and manage Appication.
+Monitoring our app, gathering metrics, understanding traffic or the state of our database
+by default we can see only three endpoints
+health -http://localhost:8080/actuator/health
+info-http://localhost:8080/actuator/info
+actuator-http://localhost:8080/actuator
+if you add below line in application.properties,we can see all the actuators which are available.
+management.endpoints.web.exposure.include= and exclude also available.
+162
+actuator-http://localhost:8080/actuator by this we can see all
+DELL
+actuator-http://localhost:8080/actuator by this we can see all
+HTTP Methods
+1.GET: Retrieves data from the server, Should have no other effect.
+2.POST: Sends data to the server for creating a new entity. Often used when uploading a file or submitting a web form.
+3.PUT: Similiar to POST, but used to replace an existing entity
+4.PATCH: Similar to PUT, but used to update only certain fields within an existing entity
+5.DELETE: Removes data from the server.
+TRACE: Provides a way to test what server receives. It simply returns what was sent.
+7.OPTIONS: Allows a client to get information about the request methods supported by a service. The relevant response header is Allow
+with supported methods. Also used in CORS as preflight request to inform server about actual request method and ask about custom
+headers.
+8.HEAD: Returns only the response headers.
+9.CONNECT: Used by browser when it knows it talks to a proxy and the final URI begins with https://. The intent of CONNECT is to allow
+end-to-end encrypted TLS session, so the data is unreadable to a proxy
+-@Profile ---
+When we create an application, we need to deploy it in different kinds of environments, such as development, QA, staging and production.
+The application configuration in each of these environments will be different.
+One of the approaches to handling application configuration is to create something called a profile. Spring Boot has the concept of a
+profile built in
+we have diffrent different environments like dev, prod, test.so we have to maintain diff diff DBs schemas or beans or set up.for this we
+are using @profile
+to activate this we need configure in application.properties-->spring.profiles.active-prod or spring.profiles.active-dev
+@Profile("dev")
+@Bean
+public String hello()
+DELL
+DBY2
+@Bean
+public String hello(
+return "hi hello dude"
+application-dev.properties
+application-qa.properties
+application-stage.properties
+application-prod.properties
+If you want to convert existing xml configuration Spring application to Spring boot just we need to import all the Xml in to context by using
+import resource.it will assign all the depencies to respected bean.
+@lmportResource ("clas path : beans: xml")
+@SpringBootApplication
+public class SpringApp
+p.s.v.m(String args)
+SpringApplicaion.run(StringApp.class, args)
+Thymeleaf----
+Server side template engine that can process xml,HTML etc,it can access fields & messages & properties from i18n messagaes files.
+we can bind out class fields with html form elements using Themeleaf.
+we can iterate our java collections usina Thymeleaf
+162
+OBY2
+DELL
+we can bind out class fields with html form elements using Themeleaf.
+we can iterate our java collections using Thymeleaf.
+we can perform form validation and display i18n messages.
+we can also use css files with our thymeleaf.
+its configuration defined n application.properties
+spring.thymeleaf.mode:HTML5
+spring.thymeleaf.prefix: default value is classpath:/Memplates/
+spring.thymeleaf.suffix: type of file like jsp ot html
+we should mention below line in jsp or html
+<html xmIns"http://www.w3.org/1999/xhtmr xmins:th="http://www.thymeleaf.org">
+(path of the html or jsp's)
+=== - -=DataSource= =
+@Bean
+public DataSource getDataSource() (
+DataSourceBuilder dataSourceBuilder DataSourceBuilder.create);
+dataSourceBuilder.driverClassName ("org.h2.Driver");
+dataSourceBuilder.url("jdbc:h2:mem:test");
+dataSourceBuilder.username("SA")
+dataSourceBuilder.password("")
+return dataSourceBuilder. build)
+Spring Security-
+providing security to the Application.spring itself is providing this feature.
+just declare the jar in pom.xml
+by defalt its generate the default username and password.
+by default username is user, password will generate.
+we can specify custom username and password in application.properties
+security.user.name-admin
+security.user.pas sword-P@55word
+@EnableWebSecurity
+12
+DELL
+security.user.password-P@55word
+@EnableWebSecurity
+1)first take the new class extends WebSecurityConfigureAdapter
+2)Override protected void configure(HttpSecurity http) throws Exception
+then write below code
+http.csrf().disable().authorizeRequests()
+antMatchers( path of the method"). authenticated);
+(or)
+http.csrf().disable().authorize Requests()
+antMatchers("path of the method") . has Roles ("admin", "user");
+3)Ovveride protected void configure(AuthencationManger auth)
+then write below code
+auth
+.inMemoryAuthentication).withUser("userName1").password("password").roles("USER")
+.and()
+inMemoryAuthentication().with User("userName2") password("password").roles("admin");
+if you want to secure your application with SSL certificate
+1)First generate the SSL certifacate with command line prompt
+2)Write username password in application.properties.
+3) keep the jks file in resources.
+the url will be changed to https://
+-Cache-
+it stores the data in RAM memory.
+if you use Cache, then is doesn't hit the database always.
+its take the data from Cache memory.
+1)mention @Enable Cacheing on the top of @SpringBootApplicaion
+2)create the bean for CacheManager and return ConcurrentMapCacheManager("cache Name")
+182
+DELL
+1)mention @EnableCacheing on the top of @SpringBootApplicaion
+2)create the bean for CacheManager and return ConcurrentMapCache Manager("cache Name")
+3)write @Cacheable(value=" cacheName", key="keyOfValue") on top of methods
+for delete method @CacheEvict(value="cache Name", key "keyOfValue")
+for add/update@CachePut(value="cache Name", key-"keyOfValue")
+n if we want to integrade third party cache -EhCache
+1) we need to add jar in pom.xml
+2) add below lines in application.properties
+spring.cache.cache-names-cacheName
+spring.cache.type-ehcache
+spring.cache.ehcache.config-classpath:ehcache.xml
+
+Maven
+162
+D&LL
+PDBY2
+Maven
+Maven takes care of downloading all necessary dependencies and including them correctly in the project. Maven is the part of the Apache
+Software Foundation.
+groupld -package Name
+artifactld -jar file name
+version- is the version of jar
+dependencies -contains of dependencies
+dependency declaring the Jar
+build building the application into the War or jar
+plugin is used to generate the War or Jar
+mvn install-to generate jar or war
+java -jar filepath.jar -is to deploy war or jar
+Apache Log4j-1.2.17 version
+It is Thread Safe
+Loggers mainly used to monitor the application at runtime and for analysis the application and its health.
+OFF-Does not print any loggers
+FATAL-It is civier errors,leads programmes to stop, Crashed the Applications
+ERROR--Exception or Errors
+WARN--database connections,connections loss.just like warning messages,missing configuration setting
+INFO-typically used to output information that is useful to the running and management of your systeminformatic,server started ,where
+went
+DEBUG-used it only for development and testing.lt displays all loggers to easy development
+TRACE(recently intoduces in 1.2)--more detailed information. Expect these to be written to logs only.used it only for development and
+testing
+ALL-turn on all loggings
+182
+Core objects: Core abjects are mandatory objects of the framework. All objects are required to use the framework.
+Support Objects: Support objects are optional objects of the framework. Thev used to support core objects to perform additional but
+DELL
+PDBY2
+Core objects: Core objects are mandatory objects of the framework. All objects are required to use the framework.
+Support Objects: Support objects are optional objects of the framework. They used to support core objects to perform additional but
+important tasks.
+Appenders-The Appender object is responsible for publishing logging information to various preferred destinations such as a file,
+database, console, Unix Syslog, etc.Types are there FileAppender,ConsoleAppender and etc
+# It tells which logger needs execute and Root of the Logger
+log4j.rootLogger TRACE, X
+#stdout means its name of the logger it is user defined.and place it in root logger then it will excute
+#ConsoleAppender it is type of appender where this logger needs to display.it displays the at console.like System.out.printin
+log4j.appender.X-org.apache.log4j.ConsoleAppender
+log4j.appender.X.layout-org.apache.log4j.PatternLayout
+log4j.appender.X.layout.ConversionPattern= % d [%24F: % : % L ] -%m %n
+#myLogger means its name of the logger it is user defined,and place it in root logger then it will excute
+#FileAppender it is type of appender where this logger needs to display it tells it is a file logger.stores in file
+log4j.appender.Y-org.apache.log4j FileAppender
+#it is path of the logger file and extension of the file
+log4j.appender.Y.File=c:/sonu/myLogger1.log
+#It tell that size of the Log file.
+log4j.appender.Y.File. MaxFile Size=10MB
+#f file is croosed the limit then takes the backup
+log4j.appender.Y.File. MaxBackuplndex-10
+#it is used to in which format logs needs to store in file.PatternLayout is one type of lay out format
+log4j.appender.Y. layout=org.apache.log4j.PatternLayout
+#it tells the format of the logs
+log4j.appender.Y.layout.ConversionPattern=%d [%10F : % t : % L ] -%m %n
+#this category tells that which root logger needs to execute ,and how to load the file.
+log4i.cateaory 2=debug.Y
+DELL
+PDBY2
+#this category tells that which root logger needs to execute ,and how to load the file.
+log4j.category.Z=debug,Y
+#ft tells the Other Loggers to stop,.. true-execute,..false=stop--if you put it as true the Above X will execute,if you put it as false
+above X will not execute.
+log4j.additivity.Z=false
+#Here we can maintain same name like Y==Z,No issue.
+#But we need load logger like public static final Logger log-Logger.getLogger("Z");
+SERVLET
+1)Servlet is a Technology,Which is used develop a Web Application.lt contains Classes,Interfaces.
+2)lt is Server side Programming Language.
+3)It takes request from the client,and process it,and gives back the result to the client(Browser).
+CGI--Common Gatway Interface--each request takes as a New Process.
+Serviet--each Request takes as a thread.
+Better performance: because it creates a thread for each request, not process.
+Portability: because it uses Java language.
+Robust: JVM manages Servlets, so we don't need to worry about the memory leak, garbage collection, etc.
+Secure: because
+uses java language.
+methods then init(ServletConfig con) method calls..init method doesn't load.
+if servlet has init() and init(ServietConfig con)
+= GenericServiet- = =======
+It is an Abstract Class.It's implements Servilet and ServietConfig and Serializable interfases.
+It gives the defalut immplementation for abstract methods except service method.
+GenericServlet class can handle any type of request so it is protocol-independent.
+==
+HttpServlet=
+=
+its is an Abstract class.lt's extends the GenericServlet class and implements Serializable interface
+DELL
+OBY2
+=HnnnnaHttpServletn =
+its is an Abstract class.It's extends the GenericServlet class and implements Serializable interface.
+It gives the default implementation for all abstract methods
+there is no abstrat methods in HttpServlet but it declare as abstract class, be cause those methods doesn't do anything with default
+immplementation, it tells to developer any one of the method ovveride is required.
+public void service(ServietRequest req,ServletResponse res) dispatches the request to the protected service method by converting the
+request and response object into http type.
+protected void service(HttpServletRequest req, HttpServletResponse res) receives the request from the service method, and
+dispatches the request to the doXXX() method depending on the incoming http request type.
+-protected void doGet(HttpServletRequest req, HttpServletResponse res) handles the GET request. It is invoked by the web container.lt
+has 8k limit
+-protected void doPost(HttpServletRequest req, HttpServletResponse res) handles the POST request. It is invoked by the web container.
+-protected void doHead(HttpServletRequest req, HttpServletResponse res) handles the HEAD request. It is invoked by the web container.
+protected void doOptions (HttpServletRequest req, HttpServletResponse res) handles the OPTIONS request. It is invoked by the web
+container.
+protected void doPut(HttpServletRequest req, HttpServletResponse res) handles the PUT request. It is invoked by the web container.
+protected void doTrace(HttpServletRequest req, HttpServletResponse res) handles the TRACE request. It is invoked by the web
+container.
+protected void doDelete(HttpServletRequest req, HttpServletResponse res) handles the DELETE request. It is invoked by the web
+container
+protected long getLastModified(HttpServletRequest req) returns the time when HttpServletRequest was last modified since midnight
+January 1, 1970 GMT.
+===Life Cycle
+Serviet class is loaded.
+Serviet instance is created.
+init method is invoked.
+service method is invoked.
+destroy method is invoked.
+DELL
+PDBY2
+destroy method is invoked.
+<Load-on-startup>-
+which servlet needs to load first.if you give load on startup as 1 then that servlet load first and init method will call.
+0-first
+1-second like serial
+if you give negative numbers then the server doesnot load that serviet
+not allows nagetaive numbers
+if two or more having the same numbers then server takes order of declaration in web.xml. first declare first load.
+by <a href ""> we can call only get method if post required use form method= "post"
+to create war file use jar -cvf projectname.war
+GET
+1) In case of Get request, only limited amount of data can be sent because data is sent in header.
+2) Get request is not secured because data is exposed
+3) Get request can be bookmarked.
+4) Get request is idempotent. It means second request will be ignored until response of first request is delivered
+5) Get request is more efficient and used more than Post.
+URL bar
+POST
+1) In case of post request, large amount of data can be sent because data is sent in body.
+2) Post request is secured because data is not exposed in URL bar
+3) Post request cannot be bookmarked.
+Post request is non-idempotent.
+5) Post request is less efficient and used less than get.
+= -RequestDispatcher= ===========
+It is an Interface which is used to dispatching request to another resource
+it may be html, servlet or jsp.
+This interface can also be used to include the content of another resource also.
+DELL
+PDBY2
+it may be html, serviet or isp.
+This interface can also be used to include the content of another resource also.
+It has two methods
+include and forward.
+The getRequestDispatcher) method of ServietRequest interface returns the object of RequestDispatcher.
+forward(req.res) is used to forward the req and res to another servlet or jsp or html but the whatever printwriter content doesn't goto
+forward servlet.if you use include then the printwriter content also will print.
+include() and forward is that include() method is used to load the contents of the specified resource (could be a Servlet, JSP, or static
+resource e.g. HTML files) directly into the Servlet's response, as if it is part of the calling Servilet. On the other hand, forward(0 method is
+used for server side redirection, where an HTTP request for one serviet is routed to another resource (Servlet, JSP file or HTML file) for
+processing.
+Forward vs SendRedirect
+Forward:
+The request will be further processed on the server side
+The client isn't impacted by forward, URL in a browser stays the same
+Request and response objects will remain the same object after forwarding. Request-scope objects will be still available
+Redirect:
+The request is redirected to a different resource
+The client will see the URL change after the redirect
+A new request is created
+Redirect is normally used within Post/Redirect/Get web development patternFORWARD) SENDREDIRECT)
+The forward() method is executed in the server side. The sendRedirect) method is executed in the client side.
+The request is transfer to other resource within same server. The request is transfer to other resource to different server.
+It does not depend on the client's request protocol since the forward () method is provided by the servlet container. The sendRedire ct()
+method is provided under HTTP so it can be used only with HTTP clients.
+The request is shared by the target resource.
+Only one call is consumed in this method. Two request and response calls are consumed.
+New request is created for the destination resource.
+DELL
+Y2
+The request is shared by the target resource.
+Only one call is consumed in this method. Two request and response calls are consumed.
+It can be used within server. It can be used within and outside the server.
+New request is created for the destination resource.
+We cannot see forwarded message, it is transparent. We can see redirected address, it is not transparent.
+The forward) method is faster than sendRedirect) method. The sendRedirect) method is slower because when new request is created
+old request object is lost.
+It is declared in RequestDispateher interface. It is declared in HttpServletResponse.
+Signature:
+forward(ServietRequest request, ServietResponse response) Signature:
+void sendRedirect(String url)
+== ServletConfig=================
+An object of ServletConfig is created by the web container for each serviet. This object can be used to get configuration information from
+web.xml file.
+If the configuration information is modified from the web.xml file, we don't need to change the servlet. So it is easier to manage the web
+application if any specific content is modified from time to time
+=
+ServletContext===
+An object of ServletContext is created by the web container at time of deploying the project. This object can be used to get configuration
+information from web.xml file. There is only one ServietContext object per web application.
+If any information is shared to many serviet, it is better to provide it from the web.xml file using the <context-param> elemen
+getServletContext() method of ServietConfig interface returns the object of ServletContext.
+getServletContext) method of GenericServlet class returns the object of ServletContext.
+config.getServietContext().getinitParameter("MyName")
+-Atributes-
+===
+An attribute in servlet is an object that can be set, get or removed from one of the following scopes:
+request scope
+sc
+ses
+application scope
+The servlet programmer can pass informations from one servlet to another using attributes. It is just like passing object from one class to
+another so that we can reuse the same obiect aqain and again
+DELL
+PDBY2
+The servlet programmer can pass informations from one serviet to another using attributes. It is just like passing object from one class to
+another so that we can reuse the same object again and again.
+= mB-
+SessionManagement
+Session-it mean a particulat period of time.
+Session tracking/Session management--It is keep tracking details of the user for the particulat time period.
+HTTP is stateless that means each request is considered as the new request.So thats the reason we are tracking the user session. To
+recognize the user It is used to recognize the particular user.
+There are four techniques used in Session tracking:
+Cookies
+Hidden Form Field
+URL Rewriting
+HttpSession
+A cookie is a small piece of information that is persisted between the multiple client requests.
+A cookie has a name, a single value, and optional attributes such as a comment, path and domain qualifiers, a maximum age, and a
+version number.
+By default, each request is considered as a new request. In cookies technique, we add cookie with response from the serviet. So cookie is
+stored in the cache of the browser. After that if request is sent by the user, cookie is added with request by default. Thus, we recognize
+the user as the old user.
+There are 2 types of cookies in serviets.
+1) Non-persistent cookie
+2) Persistent cookie
+DELL
+1) Non-persistent cookie
+2) Persistent cookie
+Non-persistent cookie
+It is valid for single session only. It is removed each time when user closes the browser.
+Persistent cookie
+It is valid for multiple session. It is not removed each time when user closes the browser. It is removed only if user logout or signout.
+Advantage of Cookies
+1) Simplest technique of maintaining the state.
+2) Cookies are maintained at client side.
+Disadvantage of Cookies
+1) It will not work if cookie is disabled from the browser.
+2) Only textual information can be set in Cookie object.
+Create Cookies
+Cookie cookie=new Cookie(studentName,studentPassword);
+response.addCookie (cookie);
+-Get Cookies
+Cookiel cookie=req.getCookies ();
+for(Cookie ck: cookie)
+ck.getName():
+ck.getValue);
+Remove Cookies----
+Cookie ckenew Cookie(studentName,"");
+ck.setMaxAge (0);
+resp.addCookie(ck):
+DELL
+PDBY2
+ck.setMaxAge(0);
+resp.addCookie(ck);
+A negative value means that the cookie is not stored persistently and will be de leted when the Web browser exits. A zero value causes the
+cookie to be deleted
+Hidden Form Field-
+It is insible form Field.Which is used to forward a field one page to another page.
+<input type="hidden" name="uname" value="Vimal Jaiswal">
+--URL rewriting-
+we can send parameter name/value pairs using the url rewriting.
+url?name1=value1 & name2=value2
+HttpSession
+HttpSession session=req.getSession);
+if any session is avaliable,then its retrurns the session object,if not created then it will create new session.
+HttpSession session=req.getSession (false);
+if any session is already created then its returns current session or else null will return doesn't create new one.
+to close the session we use session.invalidate(); it close the entire session.
+one programe one http session avaliable.
+session.setAttribute("name", object); then its available until session close.
+we can remove the attribute
+session.removeAttribute("name",object);
+request.getSession() will return a current session. if current session does not exist, then it will create a new one.
+request.getSession(true) will return current session. If current session does not exist, then it will create a new session.
+DELL
+request.getSession() will return a current session. if current session does not exist, then it will create a new one.
+request.getSession(true) will return current session. If current session does not exist, then it will create a new session.
+So basically there is not difference between both method.
+request.getSession(false) will return current session if current session exists, then it will not create a new session.
+Servlets can declare constructors but no use because already init method is there to initialized the values.
+Servlet Filter =======
+A filter is an object that is invoked at the preprocessing and postprocessing of a request.
+It is mainly used to perform filtering tasks such as conversion, logging, compression, encryption and decryption, input validation etc.
+The servlet filter is pluggable, i.e. its entry is defined in the web.xml file, if we remove the entry of filter from the web.xml file, filter will be
+removed automatically and we don't need to change the servlet.
+===--Connection Pooling===-==
+Connection pooling means that connections are reused rather than created each time a connection is requested. To facilitate connection
+reuse, a memory cache of database connections, called a connection pool, is maintained by a connection pooling module as a layer on
+top of any standard JDBC driver product.
+Datasource.setMaxidle
+Datasource.setMinldle
+===-=--=========
+JSP=====================-===
+SP Scripting elements---E
+scriptlet tag we can write java code inside this.
+% %
+expression tag :The code placed within JSP expression tag is written to the output stream of the response. So you need not write
+out.print) to write data.
+DBY2
+DELL
+out.print() to write data.
+% "Hello Jsp" %>
+declaration tag: The JSP declaration tag is used to declare fields and methods.
+<%! int data-50; %>
+Implicit Objects
+JspWriter
+HttpServietRequest
+HttpServletResponse
+ServletConfig
+ServietContext
+HttpSession
+PageContext
+m
+out.printin("Hello"); to print something
+request Parameter
+response type
+--to initialize the params for specific servlet
+to initialize the params for entire application
+it returns current session
+out
+request
+response
+config
+application
+session
+pageContext
+usually it is used for forward the objects from one source to another source(japs to jsp).by using this we can set get remove the
+objects.lt has four scopes
+page
+request
+session
+application
+pageContext.setAttribute("STRING Key" value object,Page Context.SESSION_SCOPE);
+Object-this
+page
+This object is assigned to the reference of auto generated servlet class. It is written as:
+Object page=this;
+For using this object it must be cast to Serviet type.For example:
+<% (HttpServlet)page.log("message"): %
+Since, it is of type Object it is less used because you can use this object directly in jsp.For example:
+<% this.log("message"); %>
+exception
+Throwable
+This object can be used to print the exception
+DELL
+PDBY2
+JDBC===n=
+Java Database Connectivity
+Jdbc is used Java Application can interact to the database.
+1)JDBC-ODBC bridge driver
+2)Native-API driver (partially java driver)
+3)Network Protocol driver (fullly java driver)
+4)Thin driver (fully java driver)
+==
+To Connect the database we have some steps
+1)Register or Load the Driver class--The forName() method of Class class is used to register the driver class. This method is used to
+dynamically load the driver class.
+Class.forName("oracle.jdbc.driver.OracleDriver")
+2)Create and Get connection-The getConnection() method of DriverManager class is used to establish connection with the database.
+Connection con=DriverManager.getConnection(
+"jdbc:oracle:thin :@localhost:1521:xe","system", "password");
+3)Create statement
+Statement stmt-con.createStatement();
+4)Execute queries
+ResultSet rs=stmt.executeQuery("select from emp");
+while(rs.next()X
+System.out.printin(rs.getint(1)+" "+rs.getString(2));
+)
+5)Close connection
+con.close()
+Hibernate ===========--
+=
+It is an ORM(Obje ct Relational Mapping) tool which is used to intaract the Database.
+(Java Persistence API) for data persistence.Direct gives the Object
+Hibernate implements the specifications of JPA
+DELL
+1)Register or Load the Driver class-The forName() method of Class class is used to register the driver class. This method is used to
+dynamically load the driver class.
+Class.forName("oracle.jdbc.driver.OracleDriver")
+2)Create and Get connection--The getConnection() method of DriverManager class is used to establish connection with the database.
+Connection con=DriverManager.getConnection
+jdbc:oracle: thin:@localhost: 1521:xe","system","password");
+3)Create statement
+Statement stmt=con.createStatement();
+4)Execute queries
+ResultSet rs-stmt.execute Query("select from emp");
+while(rs.next()X
+System.out.printin(rs.getint(1)+" "+rs.getString(2));
+5)Close connection
+con.close():
+===IININRI=Hibernate = = ==
+=
+Hibernate implements the specifications of JPA
+It is an ORM(Object Relational Mapping) tool which is used to intaract the Database.
+(Java Persistence API) for data persistence.Direct gives the Object.
+SessionFactory-it is factory of sessions.it holds second level cache
+Session--through the Session we can make transactions.Its holds the first level cache.
+Transaction--it Provides the transaction management means which one needs to commit which one not.
+DELL
+
+
+JWT-JSON web Token
+Jenkins ---DevOps
+Hystrix --for FultTolerance/fail/timeout
+LoadBlance(Ribbon)--Load Balancing
+Zuul--gateway api
+Actuator health of the application
+Fault Tolerance -fallbackmethod
+Kafka-msg queue
+MongoDb-Not only sql
+TDD Test Driven Development
+Logging and Global Monitoring 
+Slueth --
+Zipkin & Elk
+Triaging
+Swagger
+Microservices 12 Factors & Principles
+Microservices Design Patterns
+Docker--
+
+
+apache->> sonu/1379  http://localhost:2020/
+jenkins->> sonu/1379  http://localhost:2020/jenkins
+git->> rafi-gdk/S@nu1989  https://github.com/rafi-gdk/sonu.git
+git->> sonu/S@nu1989  http://192.168.0.10:7001/console
+
+Topics:
+Why is Security important? 
+Microservice Security Principles
+Microservice Security techniques
+Access Tokens
+Oauth 2.0
+How to secure a Microservice using OAuth 2.0
+
+Hands-on:
+Spring Boot Security Setup
+Basic Spring security
+Moving to Oauth2
+Implementing Single Sign On
+Implementing Authorization Server
+Implementing Resource Server
+
+Skills:
+Oauth 2.0
+Security tokens
+Secure by design
+Zuul
+Eureka
+Spring Boot
+Spring Security(Oath2-SSL-TSL)
+Spring Cloud
+
+
+
+Microservices Monitoring Tools
+Hystrix dashboard
+Eureka admin dashboard
+Spring boot admin dashboard
+
+
+Zipkin Distributed Tracing Server
+
+Hystrix Server
+Hystrix server acts as a fault-tolerance robust system. It is used to avoid complete failure of an application. It does this by using the Circuit Breaker mechanism. If the application is running without any issue, the circuit remains closed. If there is an error encountered in the application, the Hystrix Server opens the circuit. The Hystrix server stops the further request to calling service. It provides a highly robust system.
+
+Netflix Zuul API Gateway Server
+Netflix Zuul Server is a gateway server from where all the client request has passed through. It acts as a unified interface to a client. It also has an inbuilt load balancer to load the balance of all incoming request from the client.
+
+
+Netflix Ribbon
+Netflix Ribbon is the client-side Inter-Process Communication (IPC) library. It provides the client-side balancing algorithm. It uses a Round Robin Load Balancing:
+
+Load balancing
+Fault tolerance
+Multiple protocols(HTTP, TCP, UDP)
+Caching and Batching
+
+
+Zipkin Distributed Server
+Zipkin is an open-source project m project. That provides a mechanism for sending, receiving, and visualization traces.
+In this distributed tracing, we will use Zipkin distribute tracing server. It gives us a consolidated view of all the microservices. We get all the logs messages form the individual microservices. The Zipkin server collects the log messages. All the microservices puts the log messages on the queue called RabbitMQ, and the Zipkin picks these log messages from the RabbitMQ. The Zipkin tracing server is connected with the database.
+
+
+Zuul provides a range of different types of filters that allows us to quickly and nimbly apply functionality to our edge service. The filters perform the following functions:
+
+Authentication and Security: It provides authentication requirements for each resource.
+Insights and Monitoring: It tracks meaningful data and statistics that give us an accurate view of production.
+Dynamic Routing: It dynamically routes the requests to different backed clusters as needed.
+Stress Testing: It increases the traffic to a cluster in order to test performance.
+Load Shedding: It allocates capacity for each type of request and drops a request that goes over the limit.
+Static Response Handling: It builds some responses directly at the edge instead of forwarding them to an internal cluster.
+Multi-region Resiliency: It routes requests across AWS regions in order to diversify our ELB usage.
+
+
+The Spring Cloud Sleuth token has the following components:
+
+Application name: The name of the application that is defined in the properties file.
+Trace Id: The Sleuth adds the Trace Id. It remains the same in all services for a given request.
+Span Id: The Sleuth also adds the Span Id. It remains the same in a unit of work but different for different services for a given request.
+Zipkin Export Flag: It indicates a boolean value. It can be either true or
+data
+builder
+tostring
+equals and hashcode
+setter 
+getter
+allargscontructor
+noargsconstr
+
+
+
+ResponseEntity
+Httpheaders headers= new Httpheaders();
+headers.add(,);
+HttpEntity new(headers)
+rest.exchange(buildUri())
+
+Genpact 11:30 June 17th
+UST-GLOBAL  Sat Jun 19, 2020 2:00pm –  gdk.rafi
+400 - BAD REQUEST
+401 - UNAUTHORIZED
+403 - UNAUTHECATION
+404 - RESOURCE NOT FOUND
+415 - UNSUPPORTED TYPE - Representation not supported for the resource
+500 - SERVER ERROR
+Let’s consider a few HTTP Methods:
+
+GET : Should not update anything. Should be idempotent (same result in multiple calls). Possible Return Codes 200 (OK) + 404 (NOT FOUND) +400 (BAD REQUEST)
+POST : Should create new resource. Ideally return JSON with link to newly created resource. Same return codes as get possible. In addition - Return code 201 (CREATED) can be used.
+PUT : Update a known resource. ex: update client details. Possible Return Codes : 200(OK) + 404 (NOT FOUND) +400 (BAD REQUEST)
+DELETE : Used to delete a resource. Possible Return Codes : 200(OK).
+
+
+Maven-Scopes
+ composition vs aggregation ---Both are type of relationships,compostion tight coupled and aggregation is the loose coupled,
+->compostion-car and engine both are two different objects,but car is owns engine,if you detroy the car then engine also destroyed,it means ssif you removed the parent ,child also removed
+->aggregation-teachers and student both two diffrent indpendent objeccts,if you removed one teacher,then no need to delete anything in students,if you remove any students no need to delete anything in teachers....it is "has-a" relation
+hashcode vs Equals both should be override
+TreeSet Object not allows objects
+main in interface 
+call-time future
+
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+
+
+@SpringBootApplication(exclude = {EmbeddedServletContainerAutoConfiguration.class, WebMvcAutoConfiguration.class})
+
+-------GIT-------------------------
+ 
+git config --global user.email "rafi.gdk@gmail.com"
+git config --global user.name "rafi-gdk".
+
+rafi.gdk@gmail.com
+Hyd@1234M
+
+NEW
+----------------
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/rafi-gdk/spring-boot-basic.git
+git push -u origin master
+
+Existing
+----------------
+git remote add origin https://github.com/rafi-gdk/java-util-programs.git
+git branch -M master
+git push -u origin master
+
+rafi.gdk@gmail.com
+Gm@!l@2021
+
+gdk.rafi@gmail.com
+Hyd@1234
+
+twilio
+rafi.gdk@gmail.com
+R@ff!e9908997996M
+
+# Request URL:
+http://localhost:8080/sendSMS
+#PAYLOAD
+{
+    "accountSID":"AC75256f62c9ee00a073ca9f5b3ed3a9a6",
+    "authToken":"9ded4df4fab10e25e84a520865059028",
+    "srcPhoneNumber":"+18507906845",
+    "trgtPhoneNumber":"+919908997996",
+    "message":"checking"
+}
+
+L3-7FnJIN1qFPQPYJRBH9ESAP-_NVxMcm5t8M7XT
+
+
+...or create a new repository on the command line
+echo "# spring-boot-sms-twilio" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/rafi-gdk/spring-boot-sms-twilio.git
+git push -u origin main
+
+...or push an existing repository from the command line
+git remote add origin https://github.com/rafi-gdk/spring-boot-sms-twilio.git
+git branch -M main
+git push -u origin main
+
+simple:
+git remote add origin https://github.com/rafi-gdk/spring-boot-sms-twilio.git
+git branch -M main
+then go to Intellij and commit
+
+
+-----------------------
+-Features Of Java 8-
+1.Lambda Expressions
+2.Streams
+3.Default & Static Methods
+4.Date and Time API
+5.Type Annotations
+6.Nashorn JavaScript Engine
+7.Concurrent Accumulators
+8.Parallel operations
+9.PermGen Space Removed
+10.TLS SNI
+
+1.Lambda Expressions:
+----------------------------------------------------------------------------------
+* To Enable functional programming and to bring benefits of functional Programming
+* Mainly this concept came for to remove boiler code
+* By this we can give the implemention in easy manner.
+* It is anonymous means nameless-no return type,no modifiers
+      ->If statement is single line then no need { and }
+      ->If single argument is there then no need () or () optional.
+      ->Multiple parameters are enclosed in mandatory parentheses and separated by commas
+      ->Compiler can guess the typeod arguments automatically so no need to declare explicity
+      ->If you use "return type". you should use ""
+      ->In curly braces only we should declare return otherwise should not declare return statement.
+* It allows only java.lang.Object abstract methods like toString
+
+Example:
+@FunctionalInterface
+interface Aggregation {
+
+	abstract int add(int a,int b);
+	
+	default int multiply(int a,int b)
+	{
+		return a*b;
+	}
+	static int subtraction(int a,int b)
+	{
+		return a*b;
+	}
+}
+
+class FunctionalLambda{
+
+	public static void main(String[] args) {
+		
+		//Addition addition=(int a,int b)->{return a+b;};
+		//Addition addition=(a,b)->{return a+b;};
+		Aggregation aggregation=(a,b)->a+b;
+		int add = aggregation.add(10, 20);
+		System.out.println("addition--"+add);
+
+		//default method we can call using other implemented method's reference of interface
+		int multiply = aggregation.multiply(10, 20);
+		System.out.println("multiply--"+multiply);
+
+		//we call static methods by using Class name.
+		int subtraction = Aggregation.subtraction(10, 20);
+		System.out.println("subtraction--"+subtraction);
+	}
+}
+
+interface Test1 {
+	default int multiply(int a,int b)
+	{
+		return a*b;
+	}
+}
+interface Test2 {
+	default int multiply(int a,int b)
+	{
+		return a*b;
+	}
+}
+class TestClass  implements Test1,Test2 
+{
+	@Override
+	public int multiply(int a, int b) {
+		 int test1 = Test1.super.multiply(a, b);
+		 int test2 = Test2.super.multiply(a, b);
+		return test1>100?test1:test2;
+	}
+}
+
+Compiler can understand arguments types,no need to declare explicity.
+No need to declare explicity.
+There is no performance issue because compiler only copiles only once.
+A lambda expression can have zero, one or more parameters
+Functional Interface-
+If interfcae having only one abstract method then its calls as functional interface.
+Any number of default methods are allowed.
+Any number static methods are also allowed.
+Examples
+Runnable-run(0
+Comparable-compareTo()
+Comparater-compare())
+Callable-call)
+@Funcationalnterface
+To specifie interface is a functional Interface.
+wheather you declare or not ,.if interface having only one abstract method then it is functional interface.
+If parent has one abstract method then it is avaliable in child clas also.
+Overriding abstract method also allowed.
+Any other abstarct methods are not allowed except parent abstract method.
+If you declare interface as @Functional interface then its doesn't allowed any other methods.lts shows error if you try to declare.
+DELL
+If you declare interface as @Functional interface then its doesn't allowed any other methods.lts shows error if you try to declare.
+Function---
+The Function Interface is a part of the java.util.function package which has been introduced since Java 8, to implement functional
+programming in Java. It represents a function which takes in one argument and produces a result.
+Hence this functional interface which takes in 2 generics namely:-
+T: denotes the type of the input argument
+R: denotes the return type of the function
+The lambda expression assigned to an object of Function type is used to define its apply) which eventually applies the given function on
+the argument.
+Function Interface
+Methods
+The Function interface consists of the following 4 methods:
+
+
+*To create schema/Database
+=>use sonu   --> it will create database
+
+*it doesnot show in the databses.it should have minimum one record.
+=>show dbs
+
+*To insert the record
+=>db.movie.insert({"movieName": "Rafi"})
+
+*To drop the databse
+=>db.dopDatabase()   -->then it will drop current database
+
+*To create the collection
+
+ #without options
+=>db.createCollection(name)
+
+ #with options 
+=>db.createCollection(name, options)	
+
+		name-->Name of the collection
+		options--> Specify options about memory size and indexing
+
+		
+
+
+What is Microservices?
+   1.Microservices is a Service Oriented Architecture.
+   2.Dividing entire Applications into independent parts,each independent part is serves one service.
+Advantage of Microservices?
+   1.Microservices architecture gives freedom to developers for independently develop and deploy services.
+   2.If one microservice fails, the others will continue to work.
+   3.Code for different services can be written in different languages.
+   4.Easy integration and automatic deployment using open-source continuous integration tools such as Jenkins.
+   5.Easy to undrerstand code because small small components.
+   6.Reduce downtime.
+Disadvantgaes of Microservices?
+   1.There is a higher chance of failure during communication between different services.
+   2.Difficult to manage a large number of services.
+   3.he developer needs to solve the problem, such as network latency and load balancing.
+Microservices vs Monolith vs Soa?
+   1.Application is too large and complex to fully understand and made changes fast and correctly.
+   2.The size of the application can slow down the start-up time.
+   3.You must redeploy the entire application on each update.
+   4.Impact of a change is usually not very well understood which leads to do extensive manual testing.
+Continuous deployment is difficult.
+Eureka Server Application
+Eureka server or service registry is the application where keep all the micro services detail like a directory.
+@EnableEurekaServer  is the server 
+@EnableDiscoveryClient is the client which is Service Registry in to the Eureka
+@LoadBalanced-the url or object will be load balanced.
+
+1) Fault Tolerance
+2) Resilience
+3) If any Service is Down/Slow?
+--->Timeout-Return back with error like slow/down
+4) Circuit Breaker/fallback
+5) Hystrix & Dashboard
+-->Open source library originally created by Netflix.
+	Implem
+6) Bulk Head Pattern-threadPool
+
+
+---------Zuul-------------
+Authentication
+Insights
+Stress Testing
+Canary Testing
+Dynamic Routing 	
+Service Migration
+Load Shedding
+Security
+Static Response handling
+Active/Active traffic management
+Zuul is a JVM based router and server side load balancer by Netflix.
+Gateway-Service (Zuul proxy) Application.
+Gateway-service or zuul proxy is the one that stay at front door in any http request. The end user only see the zuul proxy url and once the user trigger a http request the zuul proxy rout that request the specific micro service in smarter way.
+   A common problem, when building microservices, is to provide a unique gateway to the client applications of your system. The fact that your services are split into small microservices apps that shouldn’t be visible to users otherwise it may result in substantial development/maintenance efforts. Also there are scenarios when whole ecosystem network traffic may be passing through a single point which could impact the performance of the cluster.
+
+   Zuul has mainly four types of filters that enable us to intercept the traffic in different timeline of the request processing for any particular transaction. We can add any number of filters for a particular url pattern.
+
+ 1) pre filters – are invoked before the request is routed.
+ 2) post filters – are invoked after the request has been routed.
+ 3) route filters – are used to route the request.
+ 4) error filters – are invoked when an error occurs while handling the request.
+
+Some of the common responsibility of gateway service are –
+
+ 1) Apply microservice authentication and security in the gateway layer to protect the actual services
+ 2) We can do microservices insights and monitoring of all the traffic that are going in to the ecosystem by enabling some logging to get meaningful data and statistics at the edge in order to give us an accurate view of production.
+ 3) Dynamic Routing can route requests to different backend clusters as needed.
+ 4) We can do runtime stress testing by gradually increasing the traffic to a new cluster in order to gauge performance in many scenarios e.g. cluster has new H/W and network setup or that has new version of production code deployed.
+ 5) We can do dynamic load shedding i.e. allocating capacity for each type of request and dropping requests that go over the limit.
+ 6) We can apply static response handling i.e. building some responses directly at the edge instead of forwarding them to an internal cluster for processing.
+ 
+ 
+ 1)finally ArrayList al= new ArrayList() what the use of finally key word in this word?
+
+It just means that you can't re-assign its reference. Attempting to do something 
+like the below will lead to compiler error.
+
+
+final List<String> list = new ArrayList<String>();
+
+list = new LinkedList<String>();
+     ^
+     Compiler error here
+
+If you really want an immutable list, you should use the Collections.unmodifiableList() method.
+
+------------------------------------------------------------------------------------------------------------------------
+2)diff java 1.5 , 1.6, 1.7 and 1.8
+
+
+Some of the major new features introduced in JAVA 5 are,
+
+1.Generics 
+2.Enhanced for Loop 
+3.Autoboxing/Unboxing 
+4.Typesafe Enums 
+5.Varargs 
+6.Static Import 
+7.Metadata (Annotations) 
+8.Instrumentation 
+
+
+Some of the major new features introduced in JAVA 6 are,
+1. Scripting Language Support 
+2. JDBC 4.0 API 
+3. Java Compiler API 
+4. Pluggable Annotations 
+5. Native PKI, Java GSS, Kerberos and LDAP support. 
+6. Integrated Web Services. 
+7. Lot more enhancements. 
+
+Next major release was Java SE 7 which included many new changes, like :
+
+Now String can be used to control Switch statement.
+Multi Catch Exception
+try-with-resource statement
+Binary Integer Literals
+Underscore in numeric literals, etc.
+
+
+Some of the major new features introduced in JAVA 8 are,
+
+Lambda Expressions
+New Collection Package java.util.stream to provide Stream API.
+Enhanced Security
+Nashorn Javascript Engine included
+Parallel Array Sorting
+The JDBC-ODBC Bridge has been removed etc.
+-------------------------------------------------------------------------------------------------------------------------
+
+3)servlet 3.0?
+
+The following annotations are applicable starting from Servlet 3.0 specification,
+
+@WebServlet
+@WebServletContextListener
+@ServletFilter
+@InitParam
+1
+------------------------------------------------------------------------------------------------------------------------
+4) what is sevlet fliter and use?
+
+A filter is an object that is invoked at the preprocessing and postprocessing of a request.
+
+It is mainly used to perform filtering tasks such as conversion, logging, compression, encryption and decryption, 
+input validation etc.
+
+The servlet filter is pluggable, i.e. its entry is defined in the web.xml file, 
+if we remove the entry of filter from the web.xml file, filter will be removed automatically and we don't need to change the servlet.
+
+;So maintenance cost will be less.
+
+usease of fliter:-
+
+recording all incoming requests
+logs the IP addresses of the computers from which the requests originate
+conversion
+data compression
+encryption and decryption
+input validation etc.
+
+Advantage of Filter:-
+
+Filter is pluggable.
+One filter don't have dependency onto another resource.
+Less Maintenance
+--------------------------------------------------------------------------------------------------------------------------
+
+5) what is thread local?
+
+Java ThreadLocal is used to create thread-local variables.
+We know that all threads of an Object share it’s variables, so if the variable is not thread safe, 
+we can use synchronization but if we want to avoid synchronization, we can use ThreadLocal variables.
+
+----------------------------------------------------------------------------------------------------------------------------
+6)
+
+Vector - 10, Arraylist - 10, Hashtable - 11, Hashmap - 16, Hashset - 16 ,pQueue -11,
+
+Arraylit:-1) The underlying data structure is resizable array (or) growable array.
+
+linked list:-1) The underlying data structure is double LinkedList
+vector:-1) The underlying data structure is resizable array (or) growable array.
+
+hashset             1) The underlying data structure is Hashtable.
+linked hashset      1) The underlying data structure is a combination of LinkedList and Hashtable.
+treeset             1) The underlying data structure is balanced tree  
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+7)Why abstract class can have constructor in Java?
+
+Now if we say we can not create instance of abstract class then why do Java adds constructor in abstract class. 
+One of the reason which make sense is,  when any class extend abstract class, 
+constructor of sub class will invoke constructor of super class either implicitly or explicitly. 
+This chaining of constructors is one of the reason abstract class can have constructors in Java.
+------------------------------------------------------------------------------------------------------------------------
+8)wt is homogeneous and hetrogeneous?
+
+A homogeneous collection may contain only elements of some pre-determined type.
+For example: a set of integers may contain only integers; a set of strings may contain only
+strings.
+
+A heterogeneous collection may contain elements of different types. For example, a
+set of objects may contain (for instance) strings only; dates only; or a mixture of strings,
+dates, and objects of any other classes
+
+-----------------------------------------------------------------------------------------------------------------------  -
+9)How to locate the properties file in the spring context configuration file?
+
+<bean id="props" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  <property name="locations" value="classpath:com/foo/jdbc.properties"/>
+</bean>
+ 
+----------------------------------------------------------------------------------------------------------------------
+10)
+*DDL(Data Defination Language): This language is used to manage database objects. It is collection of five commands.
+CREATE, ALTER, DROP, TRUNCATE, RENAME
+
+*DML(Data Maniplation Language): This language is used to manipulate the data you have stored. It is collection
+of four commands. INSERT, UPDATE, DELETE, MERGE
+
+*DRL(Data Retrival Language): This language is used to retrieve the data from the database. It is collection of
+only one command. SELECT
+
+*TCL(Transaction Control Language): It is used to maintain the transaction of Oracle database. It is collection
+of three commands. COMMIT, ROLLBACK, SAVEPOINT
+
+*DCL(Data Control Language): This language is used to control the axis of the data to the users it is collection
+of two commands. GRANT, REVOKE
+
+------------------------------------------------------------------------------------------------------------------
+11)
+Order By clause:
+Order By clause is used to arrange the rows in the table.
+By default order by clause ascending order.
+Null values are arranged in the last.
+Ex: Select * from emp Order By sal;
+Select * from emp Order By ename;
+Select * from emp Order By HIREDATE; 
+
+*Group By clause: 
+Group By clause is used to divided rows into several group. So that
+we can apply group function on each group.
+Ex: Select deptno, sum(sal) from emp Group By deptno;
+Select deptno,min(sal),max(sal) from emp Group By deptno;
+
+Rule of group by clause: All the column in the select of list should use group
+functions or should by included in group by clause.
+
+*Having clause: (to use Group By clause)
+Having clause is used to filter the output from Group By clause.
+Ex: Select deptno, sum(sal) from emp Group By deptno having sum(sal) > 9000
+
+---include directive---
+1.at file translation time(when converting into servlet)
+2.changes not reflect on this
+3.static
+<%@include file="filename"%>
+
+---include tag----
+<jsp:include page="url">
+1.included source
+2.dynamic& static
+
+Facilitate the transportation of an object through a network
+
+
+
+JVM
+===================
+Loads code
+Verifies code
+Executes code
+Provides runtime environment
+
+data types...............
+====================
+boolean	false	1 bit
+char	'	2 byte
+byte	0	1 byte
+short	0	2 byte
+int	0	4 byte
+long	0L	8 byte
+float	0.0f	4 byte
+double	0.0d	8 byte
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------
+12)
+1.EQUI_JOIN: when tables are joined basing on a common column it is called EQUI_JOIN.
+Ex: select empno, ename, dname from emp, dept where emp.deptno = dept.deptno
+
+*SELF JOIN: When a table is joining to it self it is called self join. In self joins we need to
+create two table aliases for the same table.
+Select empno, ename, job, mgr, from emp;
+Select e.empno, e.ename, e.job, m.ename from emp e, emp m where e.mgr = m.empno;
+
+*ANSI JOINS: They are the three types.
+1. Inner joins: It is same as Equi join.
+
+Ex: Select e.empno, e.ename, e.sal, e.deptno, d.dname, d.loc
+from emp e INNER JOIN dept d ON(e.deptno = d.deptno);
+
+2.NATURAL JOIN: It is same as Equi join.
+Ex: Select empno, ename, sal, deptno, dname,loc from NATURAL JOIN dept;
+
+OUTER JOINS: It is extension of EQUI JOINS.
+In outer joins we get match as well as non matching rows.
+(+) This called as outer join operator.
+
+1. RIGHT OUTER JOIN:
+
+Select e.empno, e.ename, e.sal, e.deptno, d.dname, d.loc from emp e, dept d
+where e.deptno(+) = d.deptno; //14 + 1 = 15 rows
+
+LEFT OUTER JOIN:
+
+Select e.empno, e.ename, e.sal, e.deptno, d.dname, d.loc from emp e, dept d
+where e.deptno = d.deptno(+); //14+3 = 17 row displayed
+
+FULL OUTER JOIN:
+
+Select e.empno, e.ename, e.sal, e.deptno, d.dname, d.loc
+from emp e FULL OUTER JOIN dept d ON(e.deptno = d.deptno);
+
+
+----------------------------------------------------------------------------------------------------------------
+13)RACE condition:-
+Executing multiple Threads simultaneously and causing data inconsistency problems
+is nothing but Race condition we can resolve race condition by using synchronized
+keyword.
+
+----------------------------------------------------------------------------------------------------------------
+14)how to swap without using thard varibale?
+int x=5'int y=10
+ 
+	x = x+y;
+        y=x-y;
+        x=x-y;
+---------------------------------------------------------------------------------------------------------------
+15)Number formt Exception ?
+public class One{
+public static void main(String [] ar){
+	Integer i =new Integer("null");
+	
+	System.out.println(i);//number format exception
+		
+	}
+
+	}
+---------------------------------------------------------------------------------------------------------------
+16)public class Two{
+
+int a=0;
+Static int b=10;
+
+public staic void main(String []ar){
+
+System.out.println(i);
+System.out.println(j);
+}}
+--------------------------------------------------------------------------------------------------------------
+17)what is connection pooling?
+
+
+It's a technique to allow multiple clinets to make use of a cached set of shared and reusable 
+connection objects providing access to a database. 
+
+
+------------------------------------------------------------------------------------------------------------------
+18)
+Statement interface:-
+
+The Statement interface provides methods to execute queries with the database. The statement interface is a factory of ResultSet i.e. it provides factory method to get the object of ResultSet.
+
+Commonly used methods of Statement interface:
+
+The important methods of Statement interface are as follows:
+
+1) public ResultSet executeQuery(String sql): is used to execute SELECT query. It returns the object of ResultSet.
+2) public int executeUpdate(String sql): is used to execute specified query, it may be create, drop, insert, update, delete etc.
+3) public boolean execute(String sql): is used to execute queries that may return multiple results.
+4) public int[] executeBatch(): is used to execute batch of commands.
+
+preparedstatement;-
+
+The PreparedStatement interface is a subinterface of Statement. It is used to execute parameterized query.
+PreparedStatement is also used to send the queries to DBS.
+PreparedStatement improves the performance of java application when compared with statement object.
+
+It is the responsibility of DataBase Server to improve the performance of the same query is sent for the second time.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+**What is lazy loading?
+When ever we perform can operation on one table and table has relationship with other tables 
+and then we called a load method it will retrieve the data from that table only.
+Hibernate retrieve the records from child table when even any operation is carried out of any other table. 
+By default hibernate uses lazy loading(true).
+
+
+--------------------------------------------------------------------------------------------------------------------------- 
+
+ There are four different ways to create objects in java:
+
+    Using new keyword
+    Using Class.forName():
+    Using clone():
+    Using Object Deserialization: 
+    Using newInstance();
+-------------------------------------------------------------------------------------------------------------------------
+
+
+what is System.out.println();
+
+System is a class in the java.lang package. 
+out is a static member of the System class, and is an instance of java.io.PrintStream . 
+println is a method of java.io.PrintStream .
+
+ This method is overloaded to print message to output destination, 
+which is typically a console or file.
+------------------------------------------------------------------------------------------------------------------------
+
+
+what is primary key and UNIQUE key ?
+
+primary key								UNIQUE KEY
+
+NULL:-  It doesn’t allow Null values.					Allows Null value. But only one Null value.
+	Because of this we refer
+	PRIMARY KEY = UNIQUE KEY + Not Null CONSTRAINT
+
+INDEX:- By default it adds a clustered index				By default it adds a UNIQUE non-clustered index
+
+LIMIT:- A table can have only one PRIMARY KEY Column[s]			A table can have more than one UNIQUE Key Column[s]
+	
+-------------------------------------------------------------------------------------------------------------------------
+What is the point of having a foreign key?
+
+Foreign Key:-
+
+Foreign key is a field in the table that is primary key in another table.
+Foreign key can accept multiple null value.
+Foreign key do not automatically create an index, clustered or non-clustered. 
+You can manually create an index on foreign key.
+We can have more than one foreign key in a table.
+--------------------------------------------------------------------------------------------------------------------------
+
+Composite key, or composite primary key
+
+ refers to cases where more than one column is used to specify the primary key of a table.
+ In such cases, 
+ all foreign keys will also need to include all the columns in the composite key
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Serialization in java is a mechanism of writing the state of an object into a byte stream.
+
+It is mainly used in Hibernate, RMI, JPA, EJB, JMS technologies.
+
+The reverse operation of serialization is called deserialization.
+
+The String class and all the wrapper classes implements java.io.Serializable interface by default.
+
+Advantage of Java Serialization
+
+It is mainly used to travel object's state on the network (known as marshaling).
+
+------------------------------------------------------------------------------------------------------------------------
+How to change port number tomcat in eclipse? 
+
+Click on servers tab in eclipse and then double click on the server listed there. 
+Select the port tab in the config page opened.Change the port to any other ports.Restart the server.
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+1. As Hibernate is set of Objects , you don?t need to learn SQL language. 
+You can treat TABLE as a Object . Only Java knowledge is need. 
+
+In case of JDBC you need to learn SQL. 
+
+2. Hibernate supports Query cache and It will provide the statistics about your query and database status. 
+
+JDBC Not provides any statistics. 
+
+3.Hibernate is data base independent, your code will work for all ORACLE,MySQL ,SQLServer etc. 
+
+In case of JDBC query must be data base specific. 
+
+4.You will get benefit of Cache. Hibernate support two level of cache. First level and 2nd level. So you can store your data into Cache for better performance. 
+
+In case of JDBC you need to implement your java cache . 
+
+5.No need to create any connection pool in case of Hibernate. You can use c3p0. 
+
+In case of JDBC you need to write your own connection pool 
+
+6.Development fast in case of Hibernate because you don?t need to write queries 
+
+7.ou can load your objects on start up using lazy=false in case of Hibernate. 
+
+JDBC Don?t have such support. 
+
+8. Hibernate Supports automatic versioning of rows but JDBC Not. 
+
+
+
+
+
+
+
+Difference between WHERE and HAVING in SQL
+Apart from this key difference we have seen in this article, here are few more differences between WHERE and HAVING clause, which is worth remembering and can be used to compare both of them :
+
+1) Apart from SELECT queries, you can use WHERE clause with UPDATE and DELETE clause but HAVING clause can only be used with SELECT query. For example following query, which involve WHERE clause will work but other which uses HAVING clause will not work :
+
+update DEPARTMENT set DEPT_NAME="NewSales" WHERE DEPT_ID=1 ;  // works fine
+
+update DEPARTMENT set DEPT_NAME="NewSales" HAVING DEPT_ID=1 ; // error
+Incorrect syntax near the keyword 'HAVING'.: update DEPARTMENT set DEPT_NAME='NewSales' HAVING DEPT_ID=1
+
+2) WHERE clause is used for filtering rows and it applies on each and every row, while HAVING clause is used to filter groups in SQL.
+
+3) One syntax level difference between WHERE and HAVING clause is that, former is used before GROUP BY clause, while later is used after GROUP BY clause.
+
+4) When WHERE and HAVING clause are used together in a SELECT query with aggregate function,  WHERE clause is applied first on individual rows and only rows which pass the condition is included for creating groups. Once group is created, HAVING clause is used to filter groups based upon condition specified.
+
+
+Read more: http://javarevisited.blogspot.com/2013/08/difference-between-where-vs-having-clause-SQL-databse-group-by-comparision.html#ixzz5EECvkBh1
+
+
+
+https://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@github.com/
